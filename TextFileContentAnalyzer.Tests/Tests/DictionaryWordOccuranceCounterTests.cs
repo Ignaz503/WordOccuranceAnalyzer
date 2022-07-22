@@ -1,8 +1,8 @@
 ﻿using TextFileContentAnalyzer.Testing.Core;
 using TextFileContentAnalyzer.Core.DataAnalyzer;
 using TextFileContentAnalyzer.Testing.Core.Asserts;
-using TextFileContentAnalyzer.Core.DataAnalyzers.WordOccurance;
-using TextFileContentAnalyzer.Core.DataAnalyzers.WordOccurance.Collections;
+using TextFileContentAnalyzer.Core.DataAnalyzers.WordOccurrence;
+using TextFileContentAnalyzer.Core.DataAnalyzers.WordOccurrence.Collections;
 
 namespace TextFileContentAnalyzer.Tests.Tests;
 
@@ -15,7 +15,7 @@ public class DictionaryWordOccuranceCounterTests
     {
         const string word = "test";
         var expectedCount = 1;
-        var wordCounter = new DictionaryWordOccuranceCounter();
+        var wordCounter = new DictionaryWordOccurrenceCounter();
 
         wordCounter.TrackOccurances(word);
 
@@ -27,7 +27,7 @@ public class DictionaryWordOccuranceCounterTests
     {
         const string word = "test";
         var expectedCount = 0;
-        var wordCounter = new DictionaryWordOccuranceCounter();
+        var wordCounter = new DictionaryWordOccurrenceCounter();
 
 
         Assert.IsTrue(wordCounter.GetOccuranceCountForWord(word) == expectedCount);
@@ -38,7 +38,7 @@ public class DictionaryWordOccuranceCounterTests
     {
         const string word = "test";
         var expectedCount = 2;
-        var wordCounter = new DictionaryWordOccuranceCounter();
+        var wordCounter = new DictionaryWordOccurrenceCounter();
 
         wordCounter.TrackOccurances(word);
 
@@ -54,7 +54,7 @@ public class DictionaryWordOccuranceCounterTests
         const string word = "test";
         const string word2 = "test1";
         const string word3 = "test3";
-        var wordCounter = new DictionaryWordOccuranceCounter();
+        var wordCounter = new DictionaryWordOccurrenceCounter();
 
         wordCounter.TrackOccurances(word);
         wordCounter.TrackOccurances(word);
@@ -79,7 +79,7 @@ public class DictionaryWordOccuranceCounterTests
         const string word = "test";
         const string word2 = "test1";
         const string word3 = "test3";
-        var wordCounter = new DictionaryWordOccuranceCounter();
+        var wordCounter = new DictionaryWordOccurrenceCounter();
 
         wordCounter.TrackOccurances(word);
         wordCounter.TrackOccurances(word);

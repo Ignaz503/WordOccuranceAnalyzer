@@ -3,32 +3,32 @@ using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 using TextFileContentAnalyzer.Core.DataAnalyzer;
-using TextFileContentAnalyzer.Core.DataAnalyzers.WordOccurance.Collections;
+using TextFileContentAnalyzer.Core.DataAnalyzers.WordOccurrence.Collections;
 using TextFileContentAnalyzer.Core.Optional;
 using TextFileContentAnalyzer.Core.Util;
-using TextFileContentAnalyzer.Core.DataAnalyzers.WordOccurance.ExecutionContexts;
+using TextFileContentAnalyzer.Core.DataAnalyzers.WordOccurrence.ExecutionContexts;
 using TextFileContentAnalyzer.GUI.Util;
 
-namespace TextFileContentAnalyzer.GUI.Services.WordOccuranceAnalyzerRunners;
+namespace TextFileContentAnalyzer.GUI.Services.WordOccurrenceAnalyzerRunners;
 
-public class ThreadedWordOccuranceAnalyzerRunner : IWordOccuranceAnalyzationRunner
+public class ThreadedWordOccurrenceAnalyzerRunner : IWordOccurrenceAnalyzationRunner
 {
-    readonly IDataAnalyzer<WordOccuranceCounterExecutionContext> _occuranceAnalyzer;
+    readonly IDataAnalyzer<WordOccurrenceCounterExecutionContext> _occurrenceAnalyzer;
     readonly IProgressFrequencyProvider updateFrequencyProvider;
 
-    public ThreadedWordOccuranceAnalyzerRunner(IDataAnalyzer<WordOccuranceCounterExecutionContext> occuranceAnalyzer, IProgressFrequencyProvider updateFrequencyProvider)
+    public ThreadedWordOccurrenceAnalyzerRunner(IDataAnalyzer<WordOccurrenceCounterExecutionContext> occurrenceAnalyzer, IProgressFrequencyProvider updateFrequencyProvider)
     {
-        _occuranceAnalyzer = occuranceAnalyzer;
+        _occurrenceAnalyzer = occurrenceAnalyzer;
         this.updateFrequencyProvider = updateFrequencyProvider;
     }
 
-    public async Task Run(Stream stream, IWordOccuranceCounter counter, IAsyncProgressReport<long> onProgess, IProgress<Result<Okay, Exception>> onFinished, CancellationToken ct)
+    public async Task Run(Stream stream, IWordOccurrenceCounter counter, IAsyncProgressReport<long> onProgess, IProgress<Result<Okay, Exception>> onFinished, CancellationToken ct)
     {
         try
         {
             var activeFrequency = updateFrequencyProvider.Frequency;
             var periodicProgress = new PeriodicProgressPublisher<long>(activeFrequency, onProgess.Report);
-            var ctx = new WordOccuranceCounterExecutionContext(periodicProgress, counter, stream, ct);
+            var ctx = new WordOccurrenceCounterExecutionContext(periodicProgress, counter, stream, ct);
 
 #pragma warning disable CS4014
             Task.Run(() => periodicProgress.Run(ct), ct);
@@ -43,7 +43,7 @@ public class ThreadedWordOccuranceAnalyzerRunner : IWordOccuranceAnalyzationRunn
             {
                 try
                 {
-                    signal.Result = _occuranceAnalyzer.Analyze(ctx);
+                    signal.Result = _occurrenceAnalyzer.Analyze(ctx);
                 }
                 catch (Exception ex)
                 {

@@ -26,7 +26,7 @@ public ref struct SplitEnumerator
             return false;
 
         var index = span.IndexOf(seperator);
-        if (index == -1)//no occurance
+        if (index == -1)//no occurrence
         {
             _str = ReadOnlySpan<char>.Empty;
             Current = new() { Data = span, ReadToPosition = Current.ReadToPosition + span.Length };

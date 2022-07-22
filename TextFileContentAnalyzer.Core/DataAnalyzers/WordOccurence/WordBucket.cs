@@ -1,12 +1,12 @@
 ﻿
 using System.Diagnostics.CodeAnalysis;
 
-namespace TextFileContentAnalyzer.Core.DataAnalyzer;
+namespace TextFileContentAnalyzer.Core.DataAnalyzers.WordOccurence;
 
 /// <summary>
-/// represents a word and it's occurances in something.
+/// represents a word and it's occurrences in something.
 /// </summary>
-public class WordBucket : IEquatable<WordBucket>, IComparable, IComparable<WordBucket> 
+public class WordBucket : IEquatable<WordBucket>, IComparable, IComparable<WordBucket>
 {
 
     public string Word { get; init; }
@@ -66,7 +66,7 @@ public class WordBucket : IEquatable<WordBucket>, IComparable, IComparable<WordB
         return Equals(other);
     }
 
-    public override string? ToString() 
+    public override string? ToString()
         => $"{Word}: {Count}";
 }
 

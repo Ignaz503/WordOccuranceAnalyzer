@@ -6,9 +6,11 @@ using TextFileContentAnalyzer.Core.Mediator;
 using TextFileContentAnalyzer.GUI.Messages;
 using TextFileContentAnalyzer.GUI.Services;
 using TextFileContentAnalyzer.Core.DataAnalyzer;
-using TextFileContentAnalyzer.Core.DataAnalyzers.WordOccurance.ExecutionContexts;
+using TextFileContentAnalyzer.Core.DataAnalyzers.WordOccurrence.ExecutionContexts;
 using System;
-using TextFileContentAnalyzer.GUI.Services.WordOccuranceAnalyzerRunners;
+using TextFileContentAnalyzer.GUI.Services.WordOccurrenceAnalyzerRunners;
+using TextFileContentAnalyzer.Core.DataAnalyzers.WordOccurence;
+using TextFileContentAnalyzer.Core.DataAnalyzer.WordOccurrence;
 
 namespace TextFileContentAnalyzer.GUI;
 
@@ -34,10 +36,10 @@ public partial class App : Application
         builder.AddSingleton<IMediator<ApplicationClosing>, Publisher<ApplicationClosing>>();
 
         builder.AddTransient(p =>            
-            new MainWindow() { DataContext = new MainViewModel(p.GetService<WordOccuranceAnalyzerViewModel>(), p.GetService<IMediator<ApplicationClosing>>()) }
-        , typeof(WordOccuranceAnalyzerViewModel), typeof(IMediator<ApplicationClosing>));
+            new MainWindow() { DataContext = new MainViewModel(p.GetService<WordOccurrenceAnalyzerViewModel>(), p.GetService<IMediator<ApplicationClosing>>()) }
+        , typeof(WordOccurrenceAnalyzerViewModel), typeof(IMediator<ApplicationClosing>));
 
-        builder.AddTransient<WordOccuranceAnalyzerViewModel>();
+        builder.AddTransient<WordOccurrenceAnalyzerViewModel>();
 
         ServiceProvider = builder.Build();
 
@@ -53,17 +55,17 @@ public partial class App : Application
 
     static void AddAsyncDataAnalyzationServices(ServiceProviderBuilder builder) 
     {
-        builder.AddSingleton<IWordOccuranceAnalyzationRunner, AsyncWordOccuranceAnalyzerRunner>();
-        builder.AddSingleton<IAsyncDataAnalyzer<AsyncWordOccuranceCounterExecutionContext>, AsyncWordOccuranceAnalyzer>();
+        builder.AddSingleton<IWordOccurrenceAnalyzationRunner, AsyncWordOccurrenceAnalyzerRunner>();
+        builder.AddSingleton<IAsyncDataAnalyzer<AsyncWordOccurrenceCounterExecutionContext>, AsyncWordOccurrenceAnalyzer>();
 
-        builder.AddSingleton<IWordOccuranceCounterFactory, DictionaryWordOccuranceCounterFactory>();
+        builder.AddSingleton<IWordOccurrenceCounterFactory, DictionaryWordOccurrenceCounterFactory>();
     }
     static void AddThreadedDataAnalyzationServices(ServiceProviderBuilder builder)
     {
-        builder.AddSingleton<IWordOccuranceAnalyzationRunner, ThreadedWordOccuranceAnalyzerRunner>();
-        builder.AddSingleton<IDataAnalyzer<WordOccuranceCounterExecutionContext>, WordOccuranceAnalyzer>();
+        builder.AddSingleton<IWordOccurrenceAnalyzationRunner, ThreadedWordOccurrenceAnalyzerRunner>();
+        builder.AddSingleton<IDataAnalyzer<WordOccurrenceCounterExecutionContext>, WordOccurrenceAnalyzer>();
         builder.AddSingleton<IProgressFrequencyProvider>(sp => new ProgressFrequencyProvider() { Frequency = TimeSpan.FromSeconds(0.5) });
-        builder.AddSingleton<IWordOccuranceCounterFactory, ConcurrentDictionaryWordOccuranceCounterFactory>();
+        builder.AddSingleton<IWordOccurrenceCounterFactory, ConcurrentDictionaryWordOccurrenceCounterFactory>();
     }
 
 }

@@ -1,14 +1,15 @@
-﻿using TextFileContentAnalyzer.Core.DataAnalyzers.WordOccurance.ExecutionContexts;
+﻿using TextFileContentAnalyzer.Core.DataAnalyzers.WordOccurence;
+using TextFileContentAnalyzer.Core.DataAnalyzers.WordOccurrence.ExecutionContexts;
 using TextFileContentAnalyzer.Core.Optional;
 
-namespace TextFileContentAnalyzer.Core.DataAnalyzer;
+namespace TextFileContentAnalyzer.Core.DataAnalyzer.WordOccurrence;
 
 /// <summary>
-/// Analyze a data stream on the occurance of words within it.
+/// Analyze a data stream on the occurrence of words within it.
 /// </summary>
-public class WordOccuranceAnalyzer : IDataAnalyzer<WordOccuranceCounterExecutionContext>
+public class WordOccurrenceAnalyzer : IDataAnalyzer<WordOccurrenceCounterExecutionContext>
 {
-    public Result<Okay,Exception> Analyze(WordOccuranceCounterExecutionContext ctx)
+    public Result<Okay,Exception> Analyze(WordOccurrenceCounterExecutionContext ctx)
     {
         try
         {

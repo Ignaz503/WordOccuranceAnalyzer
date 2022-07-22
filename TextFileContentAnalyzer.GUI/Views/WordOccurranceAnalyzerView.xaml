@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="TextFileContentAnalyzer.GUI.Views.WordOccuranceAnalyzerView"
+﻿<UserControl x:Class="TextFileContentAnalyzer.GUI.Views.WordOccurrenceAnalyzerView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:TextFileContentAnalyzer.GUI.Views"
              xmlns:analzyer="clr-namespace:TextFileContentAnalyzer.Core.DataAnalyzer;assembly=TextFileContentAnalyzer.Core"
              xmlns:vm="clr-namespace:TextFileContentAnalyzer.GUI.ViewModels" 
-             d:DataContext="{d:DesignInstance Type=vm:WordOccuranceAnalyzerViewModel}"
+             d:DataContext="{d:DesignInstance Type=vm:WordOccurrenceAnalyzerViewModel}"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <UserControl.Resources>

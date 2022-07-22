@@ -1,8 +1,8 @@
-﻿using TextFileContentAnalyzer.Core.DataAnalyzer;
+﻿using TextFileContentAnalyzer.Core.DataAnalyzers.WordOccurence;
 
-namespace TextFileContentAnalyzer.Core.DataAnalyzers.WordOccurance.Collections;
+namespace TextFileContentAnalyzer.Core.DataAnalyzers.WordOccurrence.Collections;
 
-public abstract class WordOccuranceCounterBase : IWordOccuranceCounter
+public abstract class WordOccurrenceCounterBase : IWordOccurrenceCounter
 {
     protected abstract IEnumerable<WordBucket> Entries { get; }
 

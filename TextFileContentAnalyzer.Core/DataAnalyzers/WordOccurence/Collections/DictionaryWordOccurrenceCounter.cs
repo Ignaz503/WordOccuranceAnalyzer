@@ -1,13 +1,8 @@
-﻿using TextFileContentAnalyzer.Core.DataAnalyzer;
+﻿using TextFileContentAnalyzer.Core.DataAnalyzers.WordOccurence;
 
-namespace TextFileContentAnalyzer.Core.DataAnalyzers.WordOccurance.Collections;
+namespace TextFileContentAnalyzer.Core.DataAnalyzers.WordOccurrence.Collections;
 
-
-
-/// <summary>
-/// Word Occurance counter that stores entries in a dictionary
-/// </summary>
-public class DictionaryWordOccuranceCounter : WordOccuranceCounterBase
+public class DictionaryWordOccurrenceCounter : WordOccurrenceCounterBase
 {
     readonly Dictionary<string, WordBucket> _entries;
 
@@ -15,7 +10,7 @@ public class DictionaryWordOccuranceCounter : WordOccuranceCounterBase
 
     protected override IEnumerable<WordBucket> Entries => _entries.Values;
 
-    public DictionaryWordOccuranceCounter() : base()
+    public DictionaryWordOccurrenceCounter() : base()
     {
         _entries = new();
     }

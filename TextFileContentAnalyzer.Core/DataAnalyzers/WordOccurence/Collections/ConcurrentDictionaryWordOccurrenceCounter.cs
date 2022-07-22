@@ -1,12 +1,8 @@
 ﻿using System.Collections.Concurrent;
-using TextFileContentAnalyzer.Core.DataAnalyzer;
+using TextFileContentAnalyzer.Core.DataAnalyzers.WordOccurence;
 
-namespace TextFileContentAnalyzer.Core.DataAnalyzers.WordOccurance.Collections;
-
-/// <summary>
-/// word occurance counter using a concurrent dictionary 
-/// </summary>
-public class ConcurrentDictionaryWordOccuranceCounter : WordOccuranceCounterBase
+namespace TextFileContentAnalyzer.Core.DataAnalyzers.WordOccurrence.Collections;
+public class ConcurrentDictionaryWordOccurrenceCounter : WordOccurrenceCounterBase
 {
     ConcurrentDictionary<string, WordBucket> _entries = new();
 

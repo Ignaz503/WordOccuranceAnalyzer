@@ -10,12 +10,13 @@ using TextFileContentAnalyzer.GUI.Commands;
 using TextFileContentAnalyzer.Core.DataAnalyzer;
 using TextFileContentAnalyzer.GUI.Util;
 using TextFileContentAnalyzer.Core.Optional;
-using TextFileContentAnalyzer.Core.DataAnalyzers.WordOccurance.Collections;
+using TextFileContentAnalyzer.Core.DataAnalyzers.WordOccurrence.Collections;
 using TextFileContentAnalyzer.GUI.Services;
-using TextFileContentAnalyzer.GUI.Services.WordOccuranceAnalyzerRunners;
+using TextFileContentAnalyzer.GUI.Services.WordOccurrenceAnalyzerRunners;
+using TextFileContentAnalyzer.Core.DataAnalyzers.WordOccurence;
 
 namespace TextFileContentAnalyzer.GUI.ViewModels;
-public class WordOccuranceAnalyzerViewModel : BaseViewModel
+public class WordOccurrenceAnalyzerViewModel : BaseViewModel
 {
     const string PlaceHolder = "Choose A File...";
 
@@ -52,7 +53,7 @@ public class WordOccuranceAnalyzerViewModel : BaseViewModel
     }
 
 
-    IWordOccuranceCounter wordOccuranceCounter;
+    IWordOccurrenceCounter wordOccuranceCounter;
     public IEnumerable<WordBucket> WordOccurances 
     {
         get => wordOccuranceCounter.EnumerateDescending();
@@ -96,19 +97,19 @@ public class WordOccuranceAnalyzerViewModel : BaseViewModel
 
     public RelayCommand FilePicker { get; private set; }
 
-    readonly IWordOccuranceAnalyzationRunner _occuranceAnalzyer;
+    readonly IWordOccurrenceAnalyzationRunner _occurrenceAnalzyer;
     readonly PeriodicForcedAsyncExecutionProgressReport<long> progressTracker;
 
     //hacky context switch but safer than doing ui updates on any thread
     readonly IProgress<Result<Okay, Exception>> resultRecievedProgress;
     readonly ForcedAsyncExecutionStatefulProgressReport<int> beforeRunUpdate;
-    readonly IWordOccuranceCounterFactory counterFactory;
+    readonly IWordOccurrenceCounterFactory counterFactory;
 
-    public WordOccuranceAnalyzerViewModel(IWordOccuranceAnalyzationRunner runner, IWordOccuranceCounterFactory counterFactory)
+    public WordOccurrenceAnalyzerViewModel(IWordOccurrenceAnalyzationRunner runner, IWordOccurrenceCounterFactory counterFactory)
     {
         FilePicker = new(OpenFilePicker, FilePickerCanExecute);
         filePath = PlaceHolder;
-        this._occuranceAnalzyer = runner;
+        this._occurrenceAnalzyer = runner;
 
         this._cancelAnalyzation = new RelayCommand(CancelAnalyzation, obj => true);
         this._analyzeFileCommand = new AsyncCommand(AnalyzerCanRun, RunAnalyzer, HandleUnkownException);
@@ -161,7 +162,7 @@ public class WordOccuranceAnalyzerViewModel : BaseViewModel
 
         await beforeRunUpdate.Report((int)stream.Length);
 
-        await _occuranceAnalzyer.Run(stream, wordOccuranceCounter, progressTracker, resultRecievedProgress, ctx.Token);
+        await _occurrenceAnalzyer.Run(stream, wordOccuranceCounter, progressTracker, resultRecievedProgress, ctx.Token);
 
 
     }

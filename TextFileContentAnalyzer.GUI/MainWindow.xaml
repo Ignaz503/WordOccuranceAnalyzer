@@ -14,8 +14,8 @@
     <Grid Margin="10">
         <ContentControl Content="{Binding ActiveViewModel}">
             <ContentControl.Resources>
-                <DataTemplate DataType="{x:Type vms:WordOccuranceAnalyzerViewModel}">
-                    <views:WordOccuranceAnalyzerView/>
+                <DataTemplate DataType="{x:Type vms:WordOccurrenceAnalyzerViewModel}">
+                    <views:WordOccurrenceAnalyzerView/>
                 </DataTemplate>
             </ContentControl.Resources>
         </ContentControl>

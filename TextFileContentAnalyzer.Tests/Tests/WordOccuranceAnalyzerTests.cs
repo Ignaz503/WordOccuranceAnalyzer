@@ -5,9 +5,10 @@ using TextFileContentAnalyzer.Testing.Core.Asserts;
 using System.Security.Cryptography;
 using TextFileContentAnalyzer.Core.Optional;
 using TextFileContentAnalyzer.Core.Util;
-using TextFileContentAnalyzer.Core.DataAnalyzers.WordOccurance;
-using TextFileContentAnalyzer.Core.DataAnalyzers.WordOccurance.ExecutionContexts;
-using TextFileContentAnalyzer.Core.DataAnalyzers.WordOccurance.Collections;
+using TextFileContentAnalyzer.Core.DataAnalyzers.WordOccurrence;
+using TextFileContentAnalyzer.Core.DataAnalyzers.WordOccurrence.ExecutionContexts;
+using TextFileContentAnalyzer.Core.DataAnalyzers.WordOccurrence.Collections;
+using TextFileContentAnalyzer.Core.DataAnalyzers.WordOccurence;
 
 namespace TextFileContentAnalyzer.Tests.Tests;
 
@@ -28,16 +29,16 @@ public class AsyncWordOccuranceAnalyzerTests : IDisposable
         tokenSource = new CancellationTokenSource();
     }
 
-    AsyncWordOccuranceCounterExecutionContext CreateExecutionContext(Stream s, IAsyncProgressReport<long> prog)
+    AsyncWordOccurrenceCounterExecutionContext CreateExecutionContext(Stream s, IAsyncProgressReport<long> prog)
     {
-        return new( prog, new DictionaryWordOccuranceCounter(),s ,tokenSource.Token );
+        return new( prog, new DictionaryWordOccurrenceCounter(),s ,tokenSource.Token );
     }
 
     [Fact]
     public async Task EmptyStringShould_HaveNoWordOccurances()
     {
         const string testString = "";
-        var analzyer = new AsyncWordOccuranceAnalyzer();
+        var analzyer = new AsyncWordOccurrenceAnalyzer();
         var prog = new MockedProgressReport();
         using var memStream = new MemoryStream(System.Text.Encoding.ASCII.GetBytes(testString));
         var ctx = CreateExecutionContext(memStream, prog);
@@ -54,7 +55,7 @@ public class AsyncWordOccuranceAnalyzerTests : IDisposable
     {
         const int expetedCount = 4;
         const string testString = "These are my words";
-        var analzyer = new AsyncWordOccuranceAnalyzer();
+        var analzyer = new AsyncWordOccurrenceAnalyzer();
         var prog = new MockedProgressReport();
         using var memStream = new MemoryStream(System.Text.Encoding.ASCII.GetBytes(testString));
         var ctx = CreateExecutionContext(memStream, prog);
@@ -71,7 +72,7 @@ public class AsyncWordOccuranceAnalyzerTests : IDisposable
     {
         const int expetedCount = 10;
         const string testString = "This enumerates all words\tafter tab\nafter newline \rafter return\vafter vtab \fafter feed";
-        var analzyer = new AsyncWordOccuranceAnalyzer();
+        var analzyer = new AsyncWordOccurrenceAnalyzer();
         var prog = new MockedProgressReport();
         using var memStream = new MemoryStream(System.Text.Encoding.ASCII.GetBytes(testString));
         var ctx = CreateExecutionContext(memStream, prog);
@@ -88,7 +89,7 @@ public class AsyncWordOccuranceAnalyzerTests : IDisposable
     {
         const int expetedCount = 5;
         const string testString = "This enumerates all words\tafter tab\nafter newline \rafter return\vafter vtab \fafter feed";
-        var analzyer = new AsyncWordOccuranceAnalyzer();
+        var analzyer = new AsyncWordOccurrenceAnalyzer();
         var prog = new MockedProgressReport();
         using var memStream = new MemoryStream(System.Text.Encoding.ASCII.GetBytes(testString));
         var ctx = CreateExecutionContext(memStream, prog);
@@ -118,7 +119,7 @@ public class AsyncWordOccuranceAnalyzerTests : IDisposable
         };
 
 
-        var analzyer = new AsyncWordOccuranceAnalyzer();
+        var analzyer = new AsyncWordOccurrenceAnalyzer();
         var prog = new MockedProgressReport();
         using var memStream = new MemoryStream(System.Text.Encoding.ASCII.GetBytes(testString));
         var ctx = CreateExecutionContext(memStream, prog);
@@ -136,7 +137,7 @@ public class AsyncWordOccuranceAnalyzerTests : IDisposable
     [Fact]
     public async Task FileAnalyzerShouldRun_IfWorkingOnRandomBytes()
     {
-        var analzyer = new AsyncWordOccuranceAnalyzer();
+        var analzyer = new AsyncWordOccurrenceAnalyzer();
         var prog = new MockedProgressReport();
         using var memStream = new MemoryStream(GenrateRandomData(4096));
         var ctx = CreateExecutionContext(memStream, prog);
@@ -147,7 +148,7 @@ public class AsyncWordOccuranceAnalyzerTests : IDisposable
     [Fact]
     public async Task FileAnalyzerShouldThrow_IfCanceled()
     {
-        var analzyer = new AsyncWordOccuranceAnalyzer();
+        var analzyer = new AsyncWordOccurrenceAnalyzer();
         var prog = new MockedProgressReport();
         using var memStream = new MemoryStream(GenrateRandomData(1024));
         var ctx = CreateExecutionContext(memStream, prog);

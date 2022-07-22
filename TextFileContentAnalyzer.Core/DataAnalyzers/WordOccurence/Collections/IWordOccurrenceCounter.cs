@@ -1,11 +1,8 @@
-﻿using TextFileContentAnalyzer.Core.DataAnalyzer;
+﻿using TextFileContentAnalyzer.Core.DataAnalyzers.WordOccurence;
 
-namespace TextFileContentAnalyzer.Core.DataAnalyzers.WordOccurance.Collections;
+namespace TextFileContentAnalyzer.Core.DataAnalyzers.WordOccurrence.Collections;
 
-/// <summary>
-/// Defines a WordOccuranceCounter as neede by the WordOccuranceAnalyzer
-/// </summary>
-public interface IWordOccuranceCounter
+public interface IWordOccurrenceCounter
 {
     int TrackOccurances(string word);
     int Track(ReadOnlySpan<char> word);

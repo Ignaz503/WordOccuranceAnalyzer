@@ -28,7 +28,7 @@ public ref struct SplitEnumeratorMultiSeperator
             return false;
 
         var index = span.IndexOfAny(seperators);
-        if (index == -1)  //no occurance
+        if (index == -1)  //no occurrence
         {
             _str = ReadOnlySpan<char>.Empty; // The remaining string is an empty string
             Current = new() { Data = span, ReadToPosition = Current.ReadToPosition + span.Length };
